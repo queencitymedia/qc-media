@@ -1,28 +1,16 @@
-﻿from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from app.core.settings import get_settings
-from app.api.routes import router as api_router
+﻿from fastapi import FastAPI, Request, Body
 
-settings = get_settings()
-app = FastAPI(title=settings.APP_NAME)
+app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=settings.BACKEND_CORS_ORIGINS,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# simple root health
 @app.get("/health")
-def health():
-    return {"ok": True, "env": settings.ENV}
+async def health():
+    return {"ok": True}
 
-# mount all API routes under the prefix (e.g., /api)
-app.include_router(api_router, prefix=settings.API_PREFIX)
+@app.get("/")
+async def root():
+    return {"service": "qc-media-api", "ok": True}
 
-# legacy hello kept so your Next.js page still works
-@app.get(f"{settings.API_PREFIX}/hello")
-def hello(name: str = "world"):
-    return {"message": f"Hello, {name}!"}
+@app.post("/leads")
+async def create_lead(payload: dict = Body(...), request: Request = None):
+    client_host = request.client.host if request and request.client else None
+    return {"status": "received", "lead": payload, "from": client_host}
