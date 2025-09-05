@@ -1,0 +1,90 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "68620ad6-74a7-429c-af94-4ebc69f56114",
+      "name": "Webhook",
+      "webhookId": "5fd1b909-c033-4fe3-b99d-53a10a4dc8a1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://qc-media.onrender.com/leads",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{$json}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        176,
+        0
+      ],
+      "id": "2e6200d4-0317-4848-abe6-e01275d1cecf",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"status\": \"ok\"\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.4,
+      "position": [
+        352,
+        0
+      ],
+      "id": "2a54b8de-8174-4f98-9537-aaaac2de3500",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c8acf42d-2420-4d9c-bf48-e03db5ab2828",
+  "meta": {
+    "instanceId": "e82ea37bad3d71c1f653ba7c0697d868aa30a2a8497f3063db6de1433937fdcb"
+  },
+  "id": "r5i854MJCKQvOy4i",
+  "tags": []
+}
