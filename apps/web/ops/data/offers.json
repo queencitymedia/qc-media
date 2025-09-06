@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Starter",
+    "price_usd": 750
+  },
+  {
+    "id": 2,
+    "name": "Growth",
+    "price_usd": 1800
+  },
+  {
+    "id": 3,
+    "name": "Pro",
+    "price_usd": 3200
+  },
+  {
+    "id": 4,
+    "name": "Custom",
+    "price_usd": 999
+  },
+  {
+    "id": 5,
+    "name": "Weekend Special",
+    "price_usd": 1299
+  },
+  {
+    "id": 7,
+    "name": "Night Owl",
+    "price_usd": 899
+  },
+  {
+    "id": 8,
+    "name": "Test Offer",
+    "price_usd": 1234
+  }
+]
