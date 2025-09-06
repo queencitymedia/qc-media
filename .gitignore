@@ -51,3 +51,7 @@ apps/api-core/qcmedia.db
 # Test artifacts
 *_test.log
 *_test.err
+!apps/web/.env.example
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.pnpm-store/
