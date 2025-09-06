@@ -10,3 +10,4 @@ __pycache__/
 
 # n8n local
 .n8n/
+/.venv/
