@@ -1,13 +1,12 @@
-﻿# Node
+﻿# Node / Python / env
 node_modules/
-.next/
-dist/
-
-# Python
-.venv/
-__pycache__/
+apps/*/.next/
+apps/*/.turbo/
+apps/*/.venv/
+apps/*/.env
+apps/*/.env.*
 *.pyc
+__pycache__/
 
-# OS
-.DS_Store
-Thumbs.db
+# n8n local
+.n8n/
