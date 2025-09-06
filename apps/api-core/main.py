@@ -1,24 +1,33 @@
-﻿import os
-from fastapi import FastAPI
-from sqlalchemy import create_engine, text
-
-# load .env if present
-try:
-    from dotenv import load_dotenv; load_dotenv()
-except Exception:
-    pass
-
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg://qc_app:qc_dev_123@localhost:5432/qcmedia_dev")
-engine = create_engine(DATABASE_URL, pool_pre_ping=True, future=True)
+﻿from fastapi import FastAPI
+from pydantic import BaseModel
 
 app = FastAPI()
+DB = {}  # in-memory store
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
+class Offer(BaseModel):
+    id: str
+    name: str
+    price: float
 
-@app.get("/db")
-def db_check():
-    with engine.connect() as conn:
-        user, db = conn.execute(text("select current_user, current_database()")).one()
-        return {"user": user, "db": db}
+@app.get("/offers")
+def list_offers():
+    return list(DB.values())
+
+@app.post("/offers")
+def create_offer(offer: Offer):
+    DB[offer.id] = offer.dict()
+    return DB[offer.id]
+
+@app.get("/offers/{id}")
+def get_offer(id: str):
+    return DB.get(id) or {"error": "not found"}
+
+@app.put("/offers/{id}")
+def put_offer(id: str, offer: Offer):
+    DB[id] = offer.dict()
+    return DB[id]
+
+@app.delete("/offers/{id}")
+def delete_offer(id: str):
+    DB.pop(id, None)
+    return {"ok": True}
