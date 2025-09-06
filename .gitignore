@@ -11,3 +11,43 @@ __pycache__/
 # n8n local
 .n8n/
 /.venv/
+# Node / Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Env files
+.env
+*.env.local
+.env.*.local
+apps/web/.env.local
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+
+# OS / Editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# SQLite / local data
+*.db
+*.sqlite
+*.sqlite3
+apps/api-core/data/
+apps/api-core/qcmedia.db
+
+# Test artifacts
+*_test.log
+*_test.err
