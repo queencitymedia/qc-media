@@ -1,79 +1,84 @@
-import { promises as fs } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-export type Offer = {
+type Offer = {
   id: number;
   title: string;
-  description?: string;
-  price?: number;
-  status: "draft"|"active"|"archived";
+  status: "draft" | "active" | "archived";
   created_at: string;
+  price_usd?: number;
+  summary?: string;
+  features?: string[];
 };
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname  = path.dirname(__filename);
-// src/lib/offers.ts -> ../../ops/data/offers.json
-const DATA_FILE  = path.resolve(__dirname, "../../ops/data/offers.json");
+const __dirname = path.dirname(__filename);
+// data at apps/web/ops/data/offers.json (relative to this file)
+const DATA_FILE = path.resolve(__dirname, "../../ops/data/offers.json");
 
-async function ensureFile() {
-  try { await fs.access(DATA_FILE); }
-  catch {
-    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
-    await fs.writeFile(DATA_FILE, "[]", "utf8");
-  }
+function ensureStore() {
+  const dir = path.dirname(DATA_FILE);
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+  if (!existsSync(DATA_FILE)) writeFileSync(DATA_FILE, "[]", "utf8");
 }
 
-export async function listOffers(): Promise<Offer[]> {
-  await ensureFile();
-  const raw = await fs.readFile(DATA_FILE, "utf8");
+function load(): Offer[] {
+  ensureStore();
+  const raw = readFileSync(DATA_FILE, "utf8");
   try {
     const arr = JSON.parse(raw);
     return Array.isArray(arr) ? arr : [];
   } catch {
-    await fs.writeFile(DATA_FILE, "[]", "utf8");
     return [];
   }
 }
 
-export async function saveOffers(all: Offer[]): Promise<void> {
-  await ensureFile();
-  await fs.writeFile(DATA_FILE, JSON.stringify(all, null, 2), "utf8");
+function save(all: Offer[]) {
+  ensureStore();
+  writeFileSync(DATA_FILE, JSON.stringify(all, null, 2), "utf8");
 }
 
-export async function createOffer(input: Partial<Offer>): Promise<Offer> {
-  const all = await listOffers();
-  const id = (all.at(-1)?.id ?? 0) + 1;
+export function listOffers(): Offer[] {
+  return load();
+}
+
+export function createOffer(input: {
+  title?: string;
+  name?: string;
+  price_usd?: number;
+  summary?: string;
+  features?: string[];
+}): Offer {
+  const all = load();
+  const nextId = all.reduce((m, o) => Math.max(m, o.id || 0), 0) + 1;
+  const title = input.title ?? input.name ?? "Untitled";
+  const now = new Date().toISOString();
   const offer: Offer = {
-    id,
-    title: input.title ?? "Untitled",
-    description: input.description,
-    price: typeof input.price === "number" ? input.price : undefined,
-    status: (input.status as Offer["status"]) ?? "draft",
-    created_at: new Date().toISOString(),
+    id: nextId,
+    title,
+    status: "draft",
+    created_at: now,
+    ...(input.price_usd !== undefined ? { price_usd: input.price_usd } : {}),
+    ...(input.summary ? { summary: input.summary } : {}),
+    ...(input.features ? { features: input.features } : {}),
   };
   all.push(offer);
-  await saveOffers(all);
+  save(all);
   return offer;
 }
 
-export async function getOffer(id: number) {
-  return (await listOffers()).find(o => o.id === id) ?? null;
+export function getOffer(id: number): Offer | null {
+  const all = load();
+  const found = all.find(o => o.id === id);
+  return found ?? null;
 }
 
-export async function updateOffer(id: number, patch: Partial<Offer>) {
-  const all = await listOffers();
+export function deleteOffer(id: number): boolean {
+  const all = load();
   const idx = all.findIndex(o => o.id === id);
-  if (idx < 0) return null;
-  all[idx] = { ...all[idx], ...patch };
-  await saveOffers(all);
-  return all[idx];
-}
-
-export async function deleteOffer(id: number) {
-  const all = await listOffers();
-  const keep = all.filter(o => o.id !== id);
-  const removed = keep.length !== all.length;
-  if (removed) await saveOffers(keep);
-  return removed;
+  if (idx === -1) return false;
+  all.splice(idx, 1);
+  save(all);
+  return true;
 }
