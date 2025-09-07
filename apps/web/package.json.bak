@@ -1,36 +1,34 @@
-{
-  "name": "web",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev --turbopack",
-    "build": "next build --turbopack",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "next": "15.5.2",
-    "react": "19.1.0",
-    "react-dom": "19.1.0"
-  },
-  "devDependencies": {
-    "@cloudflare/next-on-pages": "^1.13.16",
-    "@eslint/eslintrc": "^3",
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
-}
-{
-  "scripts": {
-    "build": "next build",
-    "pages:build": "npx @cloudflare/next-on-pages",
-    "preview": "npm run pages:build && wrangler pages dev",
-    "deploy": "npm run pages:build && wrangler pages deploy"
-  }
+﻿{
+    "name":  "web",
+    "version":  "0.1.0",
+    "private":  true,
+    "scripts":  {
+                    "dev":  "next dev -p ",
+                    "clean":  "rimraf .next node_modules/.cache .turbo",
+                    "verify":  "node ./ops/dev/verify.mjs",
+                    "smoke":  "node ./ops/dev/smoke.mjs"
+                },
+    "dependencies":  {
+                         "@radix-ui/react-slot":  "^1.2.3",
+                         "class-variance-authority":  "^0.7.1",
+                         "clsx":  "^2.1.1",
+                         "lucide-react":  "^0.542.0",
+                         "next":  "15.5.2",
+                         "react":  "^19.1.0",
+                         "react-dom":  "^19.1.0",
+                         "tailwind-merge":  "^3.3.1",
+                         "zod":  "^4.1.5"
+                     },
+    "devDependencies":  {
+                            "@tailwindcss/postcss":  "^4.1.13",
+                            "@types/node":  "^20",
+                            "@types/react":  "^19",
+                            "@types/react-dom":  "^19",
+                            "postcss":  "^8",
+                            "rimraf":  "^6.0.1",
+                            "tailwindcss":  "^4",
+                            "tw-animate-css":  "^1.3.8",
+                            "typescript":  "^5"
+                        },
+    "postcss":  "^8"
 }
