@@ -1,0 +1,4 @@
+# Block 21 — robots.txt
+User-agent: *
+Allow: /
+Sitemap: /sitemap.xml

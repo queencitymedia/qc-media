@@ -1,9 +1,9 @@
-﻿{
+{
     "name":  "web",
     "version":  "0.1.0",
     "private":  true,
     "scripts":  {
-                    "dev":  "next dev -p 3000",
+                    "dev":  "next dev",
                     "clean":  "rimraf .next node_modules/.cache .turbo",
                     "verify":  "node ./ops/dev/verify.mjs",
                     "smoke":  "node ./ops/dev/smoke.mjs",
