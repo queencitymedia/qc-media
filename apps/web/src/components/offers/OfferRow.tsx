@@ -4,7 +4,7 @@ const base = await getBaseUrl();
 'use client';
 
 import { useState, useTransition } from 'react';
-import type { Offer } from '@/lib/types';
+import type { Offer } from '../../lib/types';
 
 type Props = {
   offer: Offer;

@@ -1,4 +1,4 @@
-import { handleLogin, handleLogout } from "@/lib/auth";
+import { handleLogin, handleLogout } from "../../lib/auth";
 export const runtime = "nodejs";
 
 export async function POST(req: Request) { return handleLogin(req); }

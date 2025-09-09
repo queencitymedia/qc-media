@@ -2,10 +2,10 @@ import { getBaseUrl } from "../lib/base-url";
 const base = await getBaseUrl();
 "use client";
 import { useEffect, useMemo, useState } from "react";
-import Toast from "@/components/ui/Toast";
-import Confirm from "@/components/ui/Confirm";
+import Toast from "../ui/Toast";
+import Confirm from "../ui/Confirm";
 import OfferForm from "./OfferForm";
-import useDebounce from "@/components/ui/useDebounce";
+import useDebounce from "../ui/useDebounce";
 
 type Offer = { id:number; name:string; price_usd?:number; summary?:string; features?:string[] };
 

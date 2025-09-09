@@ -1,5 +1,5 @@
-import OffersDashboard from "@/components/offers/OffersDashboard";
-import LogoutButton from "@/components/LogoutButton";
+import OffersDashboard from "../../components/offers/OffersDashboard";
+import LogoutButton from "../../components/LogoutButton";
 
 export const runtime = "nodejs";
 

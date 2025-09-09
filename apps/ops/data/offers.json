@@ -1,10 +1,5 @@
 [
   {
-    "id": "id-wik36p0k",
-    "title": "QC Plan Install Ping",
-    "description": ""
-  },
-  {
     "id": "id-zgbirg74",
     "title": "QC Blocks Feed Ping",
     "description": ""
@@ -42,6 +37,11 @@
   {
     "id": "id-x2ftc8jm",
     "title": "QC Finalize Ping 33a6ff36",
+    "description": ""
+  },
+  {
+    "id": "id-6o3r4h1j",
+    "title": "QC Normalize Check",
     "description": ""
   }
 ]

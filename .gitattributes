@@ -1,7 +1,4 @@
 # === QC Media canonical line endings ===
-# Rule of thumb: LF for source (js/ts/json/md/yml/sh), CRLF for Windows scripts (ps1/cmd/bat).
-# We rely on .gitattributes (not core.autocrlf) to avoid noisy warnings.
-
 *               text=auto
 
 # LF sources
