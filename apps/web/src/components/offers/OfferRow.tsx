@@ -1,3 +1,5 @@
+import { getBaseUrl } from "../lib/base-url";
+const base = await getBaseUrl();
 
 'use client';
 
@@ -42,7 +44,7 @@ export default function OfferRow({ offer, onLocalUpdate }: Props) {
   }
 
   async function fetchAndHydrate() {
-    const res = await fetch('/api/offers');
+    const res = await fetch(`${base}/api/offers');
     const data = await res.json();
     const actual = (data.items as Offer[]).find(x => x.id === offer.id);
     if (actual) onLocalUpdate(actual);
@@ -70,10 +72,10 @@ export default function OfferRow({ offer, onLocalUpdate }: Props) {
             className="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-black/10 dark:border-gray-700 dark:bg-gray-900"
             value={price ?? ''}
             onChange={(e) => setPrice(e.target.value === '' ? null : Number(e.target.value))}
-            placeholder="â€”"
+            placeholder="Ã¢â‚¬â€"
           />
         ) : (
-          <div className="tabular-nums">${price != null ? price : 'â€”'}</div>
+          <div className="tabular-nums">${price != null ? price : 'Ã¢â‚¬â€'}</div>
         )}
       </div>
       <div className="col-span-2 flex justify-end gap-2">

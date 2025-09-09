@@ -1,3 +1,5 @@
+import { getBaseUrl } from "../lib/base-url";
+const base = await getBaseUrl();
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -8,7 +10,7 @@ export default function NewLeadPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("/api/leads", { method: "POST", body: JSON.stringify(form) });
+    const res = await fetch(`${base}/api/leads", { method: "POST", body: JSON.stringify(form) });
     if (res.ok) r.push("/leads");
   }
 

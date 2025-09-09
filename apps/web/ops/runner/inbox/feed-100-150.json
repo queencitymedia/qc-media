@@ -1,0 +1,13 @@
+{
+    "repoRoot":  "C:\\Users\\chase\\qc-media",
+    "createdAt":  "2025-09-09T14:14:16.5645635-04:00",
+    "appRoot":  "C:\\Users\\chase\\qc-media\\apps\\web",
+    "kind":  "qc-blocks",
+    "planPath":  "C:\\Users\\chase\\qc-media\\docs\\block-plan.json",
+    "rules":  {
+                  "noAtAlias":  true,
+                  "offersViaFn":  "__filename",
+                  "clientLocal":  true
+              },
+    "range":  "100-150"
+}

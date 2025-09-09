@@ -1,0 +1,1 @@
+Proceed to Blocks 26–30: health endpoint, minimal security headers via middleware, naive in-memory rate limiting, UX error pages (not-found, error), basic audit logging, with verification and handoff.

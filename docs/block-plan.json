@@ -1,0 +1,150 @@
+{
+  "schema": 1,
+  "notes": {
+    "imports": "Never use \"@/\"; only relative imports in routes and libs.",
+    "offersPath": "Resolve ops/data/offers.json relative to src/lib/offers.ts via __filename.",
+    "runner": "Client probes must call http://localhost:PORT/; HttpListener may bind http://+:PORT/.",
+    "windows": "All paths Windows-safe; use backslashes in scripts."
+  },
+  "ranges": [
+    {
+      "range": "30-49",
+      "title": "API & UI Stabilization + Seed",
+      "goals": [
+        "Keep /api/offers CRUD stable with in-memory + file-backed store (ops/data/offers.json).",
+        "Ensure src/lib/offers.ts resolves ops/data/offers.json via __filename.",
+        "Home page shows offers list + create form; minimal styling.",
+        "Smoke routes: GET /, GET /api/offers, POST /api/offers, GET/PUT/DELETE /api/offers/{id}."
+      ],
+      "deliverables": [
+        "apps/web/src/lib/offers.ts (no '@/')",
+        "apps/web/src/app/api/offers/route.ts (Next.js App Router handlers)",
+        "ops/data/offers.json (seed with 0–2 items)"
+      ]
+    },
+    {
+      "range": "50-69",
+      "title": "Persistence Layer: SQLite (free, local) with Repository",
+      "goals": [
+        "Introduce better-sqlite3 (no server) under apps/web/var/data.sqlite",
+        "Migrate existing offers from JSON to SQLite at boot if DB empty",
+        "Create Repository abstraction (lib/repo/*) with typed methods",
+        "Feature flag to fall back to JSON if SQLite unavailable"
+      ],
+      "deliverables": [
+        "apps/web/src/lib/repo/db.ts",
+        "apps/web/src/lib/repo/offersRepo.ts",
+        "apps/web/src/lib/env.ts (feature flag QC_DB=sqlite|json)"
+      ]
+    },
+    {
+      "range": "70-89",
+      "title": "Media Handling & Static Assets",
+      "goals": [
+        "Allow attaching image URLs to offers (up to 5); store metadata",
+        "Serve /media from public/ or .next/static with cache headers",
+        "Generate thumbnails via on-demand route /api/media/thumb?src=...",
+        "Add cache-control & ETag for media responses"
+      ],
+      "deliverables": [
+        "apps/web/src/app/api/media/thumb/route.ts",
+        "apps/web/src/lib/media/thumb.ts",
+        "public/media/.gitkeep"
+      ]
+    },
+    {
+      "range": "90-109",
+      "title": "Auth (local) + RBAC",
+      "goals": [
+        "Add passwordless dev-only auth: signed session cookie",
+        "Roles: guest (read), editor (create/update), admin (delete, settings)",
+        "Protect /api/offers write ops; add middleware checks",
+        "Add /login, /logout, and /admin routes"
+      ],
+      "deliverables": [
+        "apps/web/src/middleware.ts",
+        "apps/web/src/lib/auth/session.ts",
+        "apps/web/src/app/login/page.tsx",
+        "apps/web/src/app/admin/page.tsx"
+      ]
+    },
+    {
+      "range": "110-129",
+      "title": "Admin Console + Moderation",
+      "goals": [
+        "Admin dashboard: table of offers, filters, bulk actions",
+        "Moderation states: draft, published, archived",
+        "Audit log (SQLite table) for every write",
+        "CSV export /api/admin/export.csv"
+      ],
+      "deliverables": [
+        "apps/web/src/app/admin/offers/page.tsx",
+        "apps/web/src/app/api/admin/export/route.ts",
+        "apps/web/src/lib/repo/auditRepo.ts"
+      ]
+    },
+    {
+      "range": "130-149",
+      "title": "Checkout Sandbox (Local, Free) + Pricing",
+      "goals": [
+        "No paid processors; implement local checkout simulator (free).",
+        "Cart endpoints: /api/cart, /api/checkout (validates, returns order id).",
+        "Order store (SQLite) with status: created, paid(simulated), failed.",
+        "Pricing UI on offer card; add to cart flow."
+      ],
+      "deliverables": [
+        "apps/web/src/app/api/cart/route.ts",
+        "apps/web/src/app/api/checkout/route.ts",
+        "apps/web/src/lib/repo/ordersRepo.ts",
+        "apps/web/src/app/cart/page.tsx"
+      ]
+    },
+    {
+      "range": "150-169",
+      "title": "Observability: Health, Logs, Metrics",
+      "goals": [
+        "Health endpoint /health (env, db, fs checks).",
+        "Structured logs to ops/logs/app-YYYYMMDD.log",
+        "Metrics endpoint /metrics (basic counters).",
+        "Status page /status showing health + last smoke results."
+      ],
+      "deliverables": [
+        "apps/web/src/app/health/route.ts",
+        "apps/web/src/app/metrics/route.ts",
+        "apps/web/src/app/status/page.tsx",
+        "apps/web/src/lib/obs/logger.ts"
+      ]
+    },
+    {
+      "range": "170-189",
+      "title": "Jobs & Queues (Local) + Email Mock",
+      "goals": [
+        "Minimal job runner (setInterval) for thumbnail precompute & reindex.",
+        "Retry/backoff; job log in SQLite.",
+        "Local email outbox table + /api/dev/outbox (no external SMTP).",
+        "Admin can replay or purge jobs/outbox."
+      ],
+      "deliverables": [
+        "apps/web/src/lib/jobs/runner.ts",
+        "apps/web/src/app/api/dev/outbox/route.ts",
+        "apps/web/src/app/admin/jobs/page.tsx"
+      ]
+    },
+    {
+      "range": "190-200",
+      "title": "Hardening, Docs, QA Harness, Release Tags",
+      "goals": [
+        "Add QA harness: /api/qa/seed, /api/qa/wipe (admin-only).",
+        "E2E smoke expansion for CRUD + auth + cart.",
+        "Docs: setup, environment, troubleshooting, block plan.",
+        "Version tags v1.0.0+ and CHANGELOG.md"
+      ],
+      "deliverables": [
+        "apps/web/src/app/api/qa/seed/route.ts",
+        "apps/web/src/app/api/qa/wipe/route.ts",
+        "CHANGELOG.md",
+        "docs/README.md"
+      ]
+    }
+  ]
+}

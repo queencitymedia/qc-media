@@ -1,0 +1,10 @@
+{
+    "offers":  [
+                   {
+                       "price":  9.99,
+                       "title":  "Welcome Offer",
+                       "active":  true,
+                       "id":  "seed-1"
+                   }
+               ]
+}

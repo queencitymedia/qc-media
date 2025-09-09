@@ -1,0 +1,1 @@
+Next: Blocks 31–35 (to be defined): consider CI baseline (format/lint/typecheck), pre-commit hook, minimal health/metrics dashboard page, and dynamic sitemap/robots. Provide single-paste script, verification, and handoff.

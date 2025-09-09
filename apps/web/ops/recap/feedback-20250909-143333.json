@@ -1,0 +1,24 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.2",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "POST /api/offers":  201,
+                          "GET /api/offers":  200,
+                          "GET /":  200
+                      },
+    "blocks_30_50":  {
+                         "qc_check_url":  "http://localhost:3001/qc-check",
+                         "qc_check_title":  true,
+                         "marker_exists":  true,
+                         "marker_file":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\blocks\\30-50.txt",
+                         "marker_preview":  "Blocks 30–50 applied via QC Runner on 2025-09-09T14:04:29"
+                     },
+    "pings_present":  true,
+    "notes":  [
+                  "If qc_check_title=false: /qc-check did not include expected heading.",
+                  "If marker_exists=false: blocks marker missing at ops\\\\blocks\\\\30-50.txt.",
+                  "HTTP 404 after DELETE /api/offers/{id} is expected and OK."
+              ]
+}

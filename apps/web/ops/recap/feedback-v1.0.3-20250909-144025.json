@@ -1,0 +1,37 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.3",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "POST /api/offers":  201,
+                          "GET /api/offers/id-qrhqozgf":  404,
+                          "PUT /api/offers/id-qrhqozgf":  200,
+                          "GET /api/offers":  200,
+                          "GET /":  200,
+                          "DELETE /api/offers/id-qrhqozgf":  204
+                      },
+    "blocks_30_50":  {
+                         "qc_check_url":  "http://localhost:3001/qc-check",
+                         "qc_check_title":  true,
+                         "marker_exists":  true,
+                         "marker_file":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\blocks\\30-50.txt",
+                         "marker_preview":  "Blocks 30–50 applied via QC Runner on 2025-09-09T14:04:29"
+                     },
+    "pings_present":  true,
+    "ping_pages":  [
+                       {
+                           "slug":  "qc-blocks-30-49-ping-id-1lfk5txg",
+                           "code":  200
+                       },
+                       {
+                           "slug":  "qc-blocks-feed-ping-id-zgbirg74",
+                           "code":  200
+                       }
+                   ],
+    "notes":  [
+                  "404 after DELETE /api/offers/{id} is expected and OK.",
+                  "If qc_check_title=false: /qc-check missing heading.",
+                  "If marker_exists=false: ops\\\\blocks\\\\30-50.txt missing."
+              ]
+}

@@ -1,0 +1,30 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.6",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "GET /api/offers/id-7p19ujpv":  404,
+                          "POST /api/offers":  201,
+                          "PUT /api/offers/id-7p19ujpv":  200,
+                          "GET /qc-check-71-90":  200,
+                          "DELETE /api/offers/id-7p19ujpv":  204,
+                          "GET /api/offers":  200,
+                          "GET /":  200
+                      },
+    "blocks_71_90":  {
+                         "qc_check_url":  "http://localhost:3001/qc-check-71-90",
+                         "marker_exists":  true,
+                         "marker_file":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\blocks\\71-90.txt",
+                         "marker_preview":  "Blocks 71–90 applied via QC Runner on 2025-09-09T14:54:09"
+                     },
+    "lib_offers":  {
+                       "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\lib\\offers.ts",
+                       "enforced_rules":  "no \u0027@/\u0027 imports; __filename-based resolver to ops/data/offers.json",
+                       "exists":  true
+                   },
+    "notes":  [
+                  "404 on final GET after DELETE is expected if deletion succeeded.",
+                  "If /qc-check-71-90 != 200, verify file and dev server."
+              ]
+}

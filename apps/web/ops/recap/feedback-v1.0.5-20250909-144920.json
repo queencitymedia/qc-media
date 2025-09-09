@@ -1,0 +1,27 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.5",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "POST /api/offers":  201,
+                          "GET /api/offers":  200,
+                          "GET /":  200,
+                          "GET /qc-check-51-70":  200
+                      },
+    "blocks_51_70":  {
+                         "qc_check_url":  "http://localhost:3001/qc-check-51-70",
+                         "marker_exists":  true,
+                         "marker_file":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\blocks\\51-70.txt",
+                         "marker_preview":  "Blocks 51–70 applied via QC Runner on 2025-09-09T14:49:28"
+                     },
+    "lib_offers":  {
+                       "rule":  "resolved via __filename; no \u0027@/\u0027 imports",
+                       "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\lib\\offers.ts",
+                       "exists":  true
+                   },
+    "notes":  [
+                  "If GET /qc-check-51-70 != 200: Next.js dev not serving or file missing.",
+                  "If POST /api/offers fails: ensure ops\\\\data\\\\offers.json exists; restart dev."
+              ]
+}

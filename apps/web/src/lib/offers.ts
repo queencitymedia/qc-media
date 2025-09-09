@@ -1,84 +1,65 @@
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { promises as fs } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-type Offer = {
-  id: number;
-  title: string;
-  status: "draft" | "active" | "archived";
-  created_at: string;
-  price_usd?: number;
-  summary?: string;
-  features?: string[];
-};
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-// data at apps/web/ops/data/offers.json (relative to this file)
-const DATA_FILE = path.resolve(__dirname, "../../ops/data/offers.json");
+const DATA_FILE = path.resolve(__dirname, "../../../ops/data/offers.json");
 
-function ensureStore() {
-  const dir = path.dirname(DATA_FILE);
-  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
-  if (!existsSync(DATA_FILE)) writeFileSync(DATA_FILE, "[]", "utf8");
-}
+export type Offer = { id: string; title: string; description?: string };
 
-function load(): Offer[] {
-  ensureStore();
-  const raw = readFileSync(DATA_FILE, "utf8");
-  try {
-    const arr = JSON.parse(raw);
-    return Array.isArray(arr) ? arr : [];
-  } catch {
-    return [];
+async function ensureFile() {
+  try { await fs.access(DATA_FILE); }
+  catch {
+    await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
+    await fs.writeFile(DATA_FILE, "[]", "utf8");
   }
 }
 
-function save(all: Offer[]) {
-  ensureStore();
-  writeFileSync(DATA_FILE, JSON.stringify(all, null, 2), "utf8");
+export async function readOffers(): Promise<Offer[]> {
+  await ensureFile();
+  try {
+    const txt = await fs.readFile(DATA_FILE, "utf8");
+    const arr = JSON.parse(txt);
+    return Array.isArray(arr) ? arr as Offer[] : [];
+  } catch { return []; }
 }
 
-export function listOffers(): Offer[] {
-  return load();
+export async function writeOffers(list: Offer[]) {
+  await fs.mkdir(path.dirname(DATA_FILE), { recursive: true });
+  await fs.writeFile(DATA_FILE, JSON.stringify(list, null, 2), "utf8");
 }
 
-export function createOffer(input: {
-  title?: string;
-  name?: string;
-  price_usd?: number;
-  summary?: string;
-  features?: string[];
-}): Offer {
-  const all = load();
-  const nextId = all.reduce((m, o) => Math.max(m, o.id || 0), 0) + 1;
-  const title = input.title ?? input.name ?? "Untitled";
-  const now = new Date().toISOString();
-  const offer: Offer = {
-    id: nextId,
-    title,
-    status: "draft",
-    created_at: now,
-    ...(input.price_usd !== undefined ? { price_usd: input.price_usd } : {}),
-    ...(input.summary ? { summary: input.summary } : {}),
-    ...(input.features ? { features: input.features } : {}),
-  };
-  all.push(offer);
-  save(all);
-  return offer;
+export async function getOffer(id: string) {
+  const list = await readOffers();
+  return list.find(o => o.id === id) ?? null;
 }
 
-export function getOffer(id: number): Offer | null {
-  const all = load();
-  const found = all.find(o => o.id === id);
-  return found ?? null;
+export async function upsertOffer(data: Partial<Offer> & { title?: string }) {
+  const title = (data.title ?? "").toString();
+  if (!title) throw new Error("title_required");
+  const description = (data.description ?? "").toString();
+
+  const list = await readOffers();
+  if (data.id) {
+    const idx = list.findIndex(o => o.id === data.id);
+    if (idx >= 0) {
+      list[idx] = { id: data.id, title, description };
+      await writeOffers(list);
+      return list[idx];
+    }
+  }
+  const id = "id-" + Math.random().toString(36).slice(2, 10);
+  const item = { id, title, description };
+  list.push(item);
+  await writeOffers(list);
+  return item;
 }
 
-export function deleteOffer(id: number): boolean {
-  const all = load();
-  const idx = all.findIndex(o => o.id === id);
-  if (idx === -1) return false;
-  all.splice(idx, 1);
-  save(all);
+export async function removeOffer(id: string) {
+  const list = await readOffers();
+  const next = list.filter(o => o.id !== id);
+  if (next.length === list.length) return false;
+  await writeOffers(next);
   return true;
 }

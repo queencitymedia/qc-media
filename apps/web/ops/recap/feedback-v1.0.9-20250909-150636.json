@@ -1,0 +1,107 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.9",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "POST /api/offers":  201,
+                          "GET /qc-check-91-110":  200,
+                          "GET /qc-check-51-70":  200,
+                          "GET /api/offers":  200,
+                          "GET /api/offers/id-wjra6jii":  404,
+                          "GET /qc-check-71-90":  200,
+                          "GET /qc-check-131-150":  200,
+                          "GET /":  200,
+                          "GET /qc-check-171-190":  200,
+                          "GET /qc-check-151-170":  200,
+                          "GET /qc-check-191-200":  200,
+                          "GET /qc-check-30-50":  200,
+                          "GET /qc-check-111-130":  200,
+                          "DELETE /api/offers/id-wjra6jii":  204,
+                          "PUT /api/offers/id-wjra6jii":  200,
+                          "GET /api/media/thumb":  200
+                      },
+    "at_imports":  {
+                       "changed":  null,
+                       "remaining":  null
+                   },
+    "blocks_summary":  {
+                           "markers_dir":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\blocks",
+                           "pages":  [
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-30-50",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-30-50",
+                                             "range":  "30-50"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-51-70",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-51-70",
+                                             "range":  "51-70"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-71-90",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-71-90",
+                                             "range":  "71-90"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-91-110",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-91-110",
+                                             "range":  "91-110"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-111-130",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-111-130",
+                                             "range":  "111-130"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-131-150",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-131-150",
+                                             "range":  "131-150"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-151-170",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-151-170",
+                                             "range":  "151-170"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-171-190",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-171-190",
+                                             "range":  "171-190"
+                                         },
+                                         {
+                                             "url":  "http://localhost:3001/qc-check-191-200",
+                                             "title":  true,
+                                             "code":  200,
+                                             "slug":  "qc-check-191-200",
+                                             "range":  "191-200"
+                                         }
+                                     ]
+                       },
+    "artifacts":  {
+                      "status_log":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\recap\\finalize-200-20250909-150636.log",
+                      "plan":  "C:\\Users\\chase\\qc-media\\docs\\block-plan.json"
+                  },
+    "missing":  [
+
+                ],
+    "notes":  [
+                  "404 on final GET after DELETE is expected when delete succeeded.",
+                  "Any qc-check page with code != 200 or titleOk=false indicates pending build or route conflict."
+              ]
+}

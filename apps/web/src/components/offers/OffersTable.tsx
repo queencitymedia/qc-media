@@ -1,3 +1,5 @@
+import { getBaseUrl } from "../lib/base-url";
+const base = await getBaseUrl();
 "use client";
 import { useEffect, useMemo, useState } from "react";
 import Toast from "@/components/ui/Toast";
@@ -86,7 +88,7 @@ export default function OffersTable() {
 
   async function exportCsv() {
     setBusyCsv(true);
-    const res = await fetch("/api/offers/csv");
+    const res = await fetch(`${base}/api/offers/csv");
     const text = await res.text();
     const blob = new Blob([text], { type: "text/csv;charset=utf-8" });
     const url = URL.createObjectURL(blob);
@@ -100,7 +102,7 @@ export default function OffersTable() {
   async function importCsv(file: File) {
     setBusyCsv(true);
     const text = await file.text();
-    const res = await fetch("/api/offers/csv", { method: "POST", body: text, headers: { "Content-Type": "text/csv" }});
+    const res = await fetch(`${base}/api/offers/csv", { method: "POST", body: text, headers: { "Content-Type": "text/csv" }});
     setBusyCsv(false);
     if (!res.ok) {
       setToast("CSV import failed");
@@ -124,7 +126,7 @@ export default function OffersTable() {
           <input
             value={q}
             onChange={e=>{ setQ(e.target.value); setPage(1); }}
-            placeholder="Search name, summary, features…"
+            placeholder="Search name, summary, featuresâ€¦"
             className="border rounded-lg px-3 py-2 w-64"
           />
           <input
@@ -149,7 +151,7 @@ export default function OffersTable() {
           >
             {[10,20,50,100].map(n => <option key={n} value={n}>{n}/page</option>)}
           </select>
-          <button onClick={exportCsv} disabled={busyCsv} className="px-3 py-2 rounded-lg border disabled:opacity-60">{busyCsv?"Exporting…":"Export CSV"}</button>
+          <button onClick={exportCsv} disabled={busyCsv} className="px-3 py-2 rounded-lg border disabled:opacity-60">{busyCsv?"Exportingâ€¦":"Export CSV"}</button>
           <label className="px-3 py-2 rounded-lg border cursor-pointer">
             Import CSV
             <input type="file" accept=".csv,text/csv" className="hidden" onChange={e=>{ const f=e.target.files?.[0]; if (f) importCsv(f); e.currentTarget.value=""; }} />
@@ -175,7 +177,7 @@ export default function OffersTable() {
                   {k ? (
                     <button className="flex items-center gap-1" onClick={()=>toggleSort(k as SortKey)}>
                       <span>{label}</span>
-                      {(sortedIndicator.key===k) && <span>{sortedIndicator.dir==="asc"?"▲":"▼"}</span>}
+                      {(sortedIndicator.key===k) && <span>{sortedIndicator.dir==="asc"?"â–²":"â–¼"}</span>}
                     </button>
                   ) : <span>{label}</span>}
                 </th>

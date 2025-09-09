@@ -1,0 +1,67 @@
+[
+    {
+        "Step":  "Remove duplicate page.js",
+        "Status":  "PASS",
+        "Notes":  "No duplicate page.js"
+    },
+    {
+        "Step":  "Ensure page.tsx",
+        "Status":  "PASS",
+        "Notes":  "Found existing page.tsx"
+    },
+    {
+        "Step":  "Ensure offers.json",
+        "Status":  "PASS",
+        "Notes":  "Found valid JSON array"
+    },
+    {
+        "Step":  "Ensure src/lib/offers.ts",
+        "Status":  "PASS",
+        "Notes":  "Existing offers.ts looks correct"
+    },
+    {
+        "Step":  "Ensure /api/offers route.ts",
+        "Status":  "PASS",
+        "Notes":  "Created route.ts"
+    },
+    {
+        "Step":  "Ensure /api/offers/[id] route.ts",
+        "Status":  "PASS",
+        "Notes":  "Created [id]/route.ts"
+    },
+    {
+        "Step":  "BOM check",
+        "Status":  "FAIL",
+        "Notes":  "src\\app\\page.tsx appears to have a UTF-8 BOM"
+    },
+    {
+        "Step":  "BOM check",
+        "Status":  "FAIL",
+        "Notes":  "src\\lib\\offers.ts appears to have a UTF-8 BOM"
+    },
+    {
+        "Step":  "Patch package.json",
+        "Status":  "PASS",
+        "Notes":  "Ensured scripts.dev and scripts.clean"
+    },
+    {
+        "Step":  "npm install",
+        "Status":  "PASS",
+        "Notes":  "node_modules present"
+    },
+    {
+        "Step":  "Clean build caches",
+        "Status":  "PASS",
+        "Notes":  "Ran npm run clean"
+    },
+    {
+        "Step":  "Dev server health",
+        "Status":  "PASS",
+        "Notes":  "GET / responded on :3000"
+    },
+    {
+        "Step":  "POST /api/offers",
+        "Status":  "FAIL",
+        "Notes":  "HTTP 404"
+    }
+]

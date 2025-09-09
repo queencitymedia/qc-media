@@ -1,3 +1,5 @@
+import { getBaseUrl } from "../lib/base-url";
+const base = await getBaseUrl();
 "use client";
 
 import { useState, FormEvent } from "react";
@@ -16,7 +18,7 @@ export default function AddOfferForm() {
     try {
       const payload: any = { name: name.trim() };
       if (price.trim() !== "") payload.price_usd = Number(price);
-      const res = await fetch("/api/offers", {
+      const res = await fetch(`${base}/api/offers", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(payload),
@@ -54,7 +56,7 @@ export default function AddOfferForm() {
         style={{ padding: 8, borderRadius: 8, border: "1px solid #ccc" }}
       />
       <button disabled={busy} style={{ padding: 10, borderRadius: 10, border: "1px solid #999" }}>
-        {busy ? "Adding…" : "Add Offer"}
+        {busy ? "Addingâ€¦" : "Add Offer"}
       </button>
       {err && <div style={{ color: "crimson" }}>{err}</div>}
     </form>

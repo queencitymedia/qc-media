@@ -1,0 +1,50 @@
+{
+    "kind":  "QC_FEEDBACK",
+    "version":  "v1.0.8",
+    "runner_port":  5680,
+    "dev_port":  3001,
+    "http_statuses":  {
+                          "POST /api/offers":  201,
+                          "DELETE /api/offers/id-flwzg4u6":  204,
+                          "PUT /api/offers/id-flwzg4u6":  200,
+                          "GET /api/offers/id-flwzg4u6":  404,
+                          "GET /api/offers":  200,
+                          "GET /":  200
+                      },
+    "fixes":  {
+                  "files_created":  [
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\lib\\env.ts"
+                                        },
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\lib\\repo\\db.ts"
+                                        },
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\lib\\repo\\offersRepo.ts"
+                                        },
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\src\\app\\api\\media\\thumb\\route.ts"
+                                        },
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\ops\\data\\offers.json"
+                                        },
+                                        {
+                                            "exists":  true,
+                                            "path":  "C:\\Users\\chase\\qc-media\\apps\\web\\ops\\data\\offers.json"
+                                        }
+                                    ],
+                  "at_imports":  {
+                                     "changed":  null,
+                                     "remaining":  null
+                                 }
+              },
+    "notes":  [
+                  "Final GET after DELETE may be 404 if deletion succeeded.",
+                  "If GET / or /api/offers still 0, check Next dev console for build errors."
+              ]
+}

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Alex HVAC",
+    "email": "alex@hvac.co",
+    "company": "Alex HVAC",
+    "source": "manual",
+    "status": "new",
+    "created_at": "2025-09-07T02:18:23.980Z"
+  },
+  {
+    "id": 2,
+    "name": "Tanya Diner",
+    "email": "tanya@diner.co",
+    "company": "Tanya Diner",
+    "source": "website_form",
+    "status": "new",
+    "created_at": "2025-09-07T02:20:27.541Z"
+  },
+  {
+    "id": 3,
+    "name": "Chris Auto",
+    "email": "chris@auto.com",
+    "company": "Chris Auto Repair",
+    "source": "manual",
+    "status": "new",
+    "created_at": "2025-09-07T02:20:28.540Z"
+  }
+]

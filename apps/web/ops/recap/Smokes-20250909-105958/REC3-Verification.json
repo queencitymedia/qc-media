@@ -1,0 +1,17 @@
+[
+    {
+        "step":  "GET /",
+        "code":  0,
+        "ok":  false
+    },
+    {
+        "step":  "GET /api/offers",
+        "code":  0,
+        "ok":  false
+    },
+    {
+        "step":  "POST /api/offers",
+        "code":  0,
+        "ok":  false
+    }
+]

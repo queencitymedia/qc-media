@@ -1,3 +1,5 @@
+import { getBaseUrl } from "../lib/base-url";
+const base = await getBaseUrl();
 "use client";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -21,7 +23,7 @@ export default function NewActivityPage() {
       details: form.details || undefined,
       follow_up_at: form.follow_up_at || undefined
     };
-    const res = await fetch("/api/activities", { method: "POST", body: JSON.stringify(body) });
+    const res = await fetch(`${base}/api/activities", { method: "POST", body: JSON.stringify(body) });
     if (res.ok) r.push("/activities");
   }
 
