@@ -1,9 +1,7 @@
 {
-  "name": "qc-media",
-  "private": true,
-  "scripts": {
-    "dev:web": "pnpm --dir apps/web dev",
-    "build:web": "pnpm --dir apps/web build",
-    "start:web": "pnpm --dir apps/web start"
-  }
-}
+  "name": "calcom-retell-server",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch":
